@@ -3,8 +3,10 @@ name: Test GITHUB_OUTPUT
 on: [push]
 
 jobs:
-  test-github-output:
+  job1:
     runs-on: ubuntu-latest
+    outputs:
+      my_output_value: ${{ steps.set-output.outputs.MY_OUTPUT }}
 
     steps:
     - name: Checkout code
@@ -16,3 +18,13 @@ jobs:
 
     - name: Use output variable
       run: echo "The output value is ${{ steps.set-output.outputs.MY_OUTPUT }}"
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Use output variable from another job
+      run: echo "The output value from the first job is ${{ needs.job1.outputs.my_output_value }}"
