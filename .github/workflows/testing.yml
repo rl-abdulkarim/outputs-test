@@ -3,14 +3,16 @@ name: Test GITHUB_OUTPUT
 on: [push]
 
 jobs:
-  job1:
+  test-github-output:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set output variable
       id: set-output
-      run: echo "KEY1=VALUE1" >> $GITHUB_OUTPUT
+      run: echo "MY_OUTPUT=Hello, World!" >> $GITHUB_OUTPUT
 
     - name: Use output variable
-      run: echo "The output value is: ${{ steps.set-output.outputs.KEY1 }}"
+      run: echo "The output value is ${{ steps.set-output.outputs.MY_OUTPUT }}"
