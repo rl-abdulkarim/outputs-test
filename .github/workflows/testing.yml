@@ -1,0 +1,16 @@
+name: Test GITHUB_OUTPUT
+
+on: [push]
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Set output variable
+      id: set-output
+      run: echo "KEY1=VALUE1" >> $GITHUB_OUTPUT
+
+    - name: Use output variable
+      run: echo "The output value is: ${{ steps.set-output.outputs.KEY1 }}"
